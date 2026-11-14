@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+/* Paleta Óptica Visión: azules médicos, blancos y gris pizarra (slate de Tailwind) */
+@theme {
+  --color-brand-50: #f0f7fd;
+  --color-brand-100: #dcebf9;
+  --color-brand-200: #bcd9f3;
+  --color-brand-300: #8fc0ea;
+  --color-brand-400: #5aa1de;
+  --color-brand-500: #3385cf;
+  --color-brand-600: #1f6cb8;
+  --color-brand-700: #1a5796;
+  --color-brand-800: #194a7b;
+  --color-brand-900: #183f67;
+  --color-brand-950: #10263f;
+
+  --font-sans: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-slate-50);
+  color: var(--color-slate-700);
+  font-family: var(--font-sans);
+}

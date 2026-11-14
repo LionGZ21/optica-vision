@@ -1,0 +1,69 @@
+@host = https://localhost:7100
+### Cambie el puerto por el de su proyecto (aparece en "Now listening on").
+
+# @name login
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{ "email": "admin@opticavision.com", "password": "Admin#2026Optica" }
+
+###
+@token = {{login.response.body.$.token}}
+
+### 1. Árbol de taxonomía
+GET {{host}}/api/taxonomia/arbol
+Authorization: Bearer {{token}}
+
+### 2. Crear artículo (ajuste los ids según su base: subfamilia, marca, impuesto, unidad)
+POST {{host}}/api/articulos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "codigo": "MON-001", "nombre": "Montura acetato negra", "descripcion": "Prueba",
+  "subfamiliaId": 1, "marcaId": 1, "impuestoId": 2, "unidadBaseId": 1,
+  "tipoArticulo": "MONTURA", "uso": "VENTA", "stockMinimo": 2 }
+
+### 3. Precio de venta en la lista general (articuloId=1, listaPrecioId=1, unidad=1)
+PUT {{host}}/api/articulos/1/precios
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "listaPrecioId": 1, "unidadMedidaId": 1, "precio": 1500 }
+
+### 4. Entrada de inventario (bodega 1 = venta Central)
+POST {{host}}/api/inventario/movimientos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "articuloId": 1, "bodegaId": 1, "tipoMovimiento": "ENTRADA", "cantidad": 10, "costoUnitario": 800, "observacion": "Carga inicial" }
+
+### 5. Salida mayor al stock => debe responder 409 "Stock insuficiente"
+POST {{host}}/api/inventario/movimientos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "articuloId": 1, "bodegaId": 1, "tipoMovimiento": "SALIDA", "cantidad": 999 }
+
+### 6. Kardex del artículo
+GET {{host}}/api/inventario/kardex?articuloId=1
+Authorization: Bearer {{token}}
+
+### 7. Crear venta (borrador) y confirmarla
+POST {{host}}/api/ventas
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "sucursalId": 1, "bodegaId": 1, "clienteNombre": "Cliente de prueba",
+  "lineas": [ { "articuloId": 1, "cantidad": 1 } ] }
+
+###
+POST {{host}}/api/ventas/1/confirmar
+Authorization: Bearer {{token}}
+
+### 8. Paciente (crea también su expediente)
+POST {{host}}/api/pacientes
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "documentoIdentidad": "001-010190-0001A", "nombres": "Ana", "apellidos": "Pérez",
+  "fechaNacimiento": "1990-01-01", "sexo": "F", "telefono": "8888-8888" }

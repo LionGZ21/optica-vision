@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <!-- Si su SDK es .NET 8 o 9, cambie SOLO estas dos líneas: net8.0 / 8.*  (o net9.0 / 9.*) -->
+    <TargetFramework>net10.0</TargetFramework>
+    <MsVer>10.*</MsVer>
+
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>optica-vision-api-2026</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="$(MsVer)" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(MsVer)" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="$(MsVer)" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="$(MsVer)">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="$(MsVer)" />
+    <PackageReference Include="EFCore.NamingConventions" Version="$(MsVer)" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.*" />
+  </ItemGroup>
+
+</Project>

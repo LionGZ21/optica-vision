@@ -1,0 +1,14 @@
+# .NET
+bin/
+obj/
+.vs/
+*.user
+appsettings.Development.json
+
+# Node / React
+node_modules/
+dist/
+.env.local
+
+# Temporales
+*.txt
