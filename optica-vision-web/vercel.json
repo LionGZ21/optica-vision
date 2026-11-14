@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://REEMPLAZAR-CON-TU-URL-DE-RENDER.onrender.com/api/:path*"
+      "destination": "https://opticavision-api.onrender.com/api/:path*"
     },
     {
       "source": "/(.*)",
